@@ -3,13 +3,10 @@ package com.gfg.catalog.controller;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
-import javax.ws.rs.core.Context;
-import javax.ws.rs.core.UriInfo;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,7 +16,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -114,27 +110,64 @@ public class CatalogController {
 	@RequestMapping("/products/pagination")
 	public ProductResponse getPaginatedProducts(HttpServletRequest request,
 										@RequestParam(value = "page", required = false) Integer page,
-										@RequestParam(value = "size", required = false) Integer size) {
-		List<UUID> formattedProdIds = new ArrayList<UUID>();
-		String requestUrl = request.getRequestURL().toString();
-		String queryString = request.getQueryString();
-		Map<String, String[]> params = request.getParameterMap();
-		logger.info("Paramsss"+params.keySet());
-		String method = request.getMethod();
-		List<Link> links = new ArrayList<>();
-		links.add(new Link(requestUrl+"?"+queryString, "CUR", method));
-		links.add(new Link(requestUrl+"?"+queryString, "NEXT", method));
-		links.add(new Link(requestUrl+"?"+queryString, "PREV", method));
+										@RequestParam(value = "size", required = false) Integer size, 
+										@RequestParam(value = "orderBy", required = false) String orderBy,
+										@RequestParam(value = "direction", required = false) String direction){
 		if(page == null) {
 			page = defaultPage;
 		} else if(size == null){
 			logger.info("defaultSize :: "+defaultSize);
 			size = defaultSize;
 		}
-		return new ProductResponse(catalogService.getPaginatedProducts(page, size), links);
+		Page<Product> pageFormatProds = catalogService.getPaginatedProducts(page, size, orderBy, direction);
+		List<Link> links = formHateoas(request, pageFormatProds.getTotalPages(), page);
+		return new ProductResponse(pageFormatProds, links);
 		
 	}
 	
+	private List<Link> formHateoas(HttpServletRequest request, int totPages, int curPage) {
+		List<Link> links = new ArrayList<Link>();
+		links.add(new Link(request.getRequestURL().toString()+"?"+request.getQueryString(), "CUR", request.getMethod()));
+		links.add(generatePrevNxtLinks(request, "NEXT", totPages));
+		links.add(generatePrevNxtLinks(request, "PREV", totPages));
+		return links;
+	}
+
+
+	
+	private Link generatePrevNxtLinks(HttpServletRequest request, String linkTyp, int totPages) {
+		Map<String, String[]> queryParams = request.getParameterMap();
+		int curPageNo = Integer.parseInt(queryParams.get("page")[0]);
+		if((linkTyp == "NEXT" && curPageNo+1 == totPages) || (linkTyp == "PREV" && curPageNo == 0)) {
+			return new Link(request.getRequestURL().toString()+"?"+request.getQueryString(), linkTyp, request.getMethod());
+		} else {
+			StringBuffer nextURI = request.getRequestURL();
+			nextURI.append("?");
+			for(Map.Entry<String, String[]> entry : queryParams.entrySet()) {
+				nextURI.append(entry.getKey());
+				nextURI.append("=");
+				if(entry.getValue().length == 1) {
+					if(entry.getKey() == "page" && linkTyp == "NEXT") {
+						nextURI.append(curPageNo+1);
+					} else if(entry.getKey() == "page" && linkTyp == "PREV"){
+						nextURI.append(curPageNo-1);
+					} else if(entry.getKey() == "page") {
+						nextURI.append(entry.getValue()[0]);
+					}
+				} else {
+					for(int i=0; i<=entry.getValue().length-1; i++) {
+						nextURI.append(entry.getValue()[i]);
+						if(i != entry.getValue().length-1) {
+							nextURI.append(",");
+						}
+					}
+				}
+				nextURI.append("&");
+			}
+			return new Link(nextURI.toString(),"NEXT", request.getMethod());
+		}
+	}
+
 	private List<UUID> formatStringtoUUID(String productIds) {
 		final List<UUID> formattedProdIds = new ArrayList<UUID>();
 		// TODO Auto-generated method stub

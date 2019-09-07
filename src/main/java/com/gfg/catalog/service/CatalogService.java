@@ -1,10 +1,7 @@
 package com.gfg.catalog.service;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
-
-import javax.ws.rs.core.UriInfo;
 
 import org.springframework.data.domain.Page;
 
@@ -41,6 +38,6 @@ public interface CatalogService {
 	
 	List<Product> searchProductsByTitleDesc(final String title, final String desc);
 
-	Page<Product> getPaginatedProducts(final int page, final int size);
+	Page<Product> getPaginatedProducts(int page, int size, String orderBy, String direction);
 
 }

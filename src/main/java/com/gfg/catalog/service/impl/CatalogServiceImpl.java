@@ -1,12 +1,9 @@
 package com.gfg.catalog.service.impl;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
-
-import javax.ws.rs.core.UriInfo;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,7 +16,6 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.domain.Sort.Order;
 import org.springframework.stereotype.Service;
 
-import com.gfg.catalog.dao.ProductDAO;
 import com.gfg.catalog.dao.ProductRepository;
 import com.gfg.catalog.entities.Product;
 import com.gfg.catalog.exception.ProductNotFoundException;
@@ -30,9 +26,6 @@ public class CatalogServiceImpl implements CatalogService {
 
 	@Autowired
 	private ProductRepository productRepo;
-	
-	@Autowired
-	private ProductDAO productDAO;
 	
 	private static final Logger LOGGER = LoggerFactory.getLogger(CatalogServiceImpl.class);
 	
@@ -110,18 +103,19 @@ public class CatalogServiceImpl implements CatalogService {
 	
 	@SuppressWarnings("deprecation")
 	@Override
-	public Page<Product> getPaginatedProducts(int page, int size){
-		
-		 List<Order> orders = new ArrayList<Order>();
-		 orders.add(new Sort.Order(Direction.ASC, "brand")); 
-		 orders.add(new Sort.Order(Direction.ASC, "price")); 
-		 orders.add(new Sort.Order(Direction.ASC, "color")); 
-		 Sort sort = new Sort(orders);
+	public Page<Product> getPaginatedProducts(int page, int size, String orderBy, String direction){
+		Sort sort = null;
+		if(orderBy != null && !orderBy.isEmpty()) {
+			String[] orderByFields = orderBy.split(",");
+			List<Order> orders = new ArrayList<Order>();
+			for(String orderByField : orderByFields) {
+				orders.add(new Sort.Order(Direction.fromString(direction), orderByField)); 
+			}
+			sort = new Sort(orders);
+		}
 		 
 		Pageable pageable = new PageRequest(page, size, sort);
 		Page<Product> data = productRepo.findAll(pageable);
 		return data;
 	}
-
-
 }
