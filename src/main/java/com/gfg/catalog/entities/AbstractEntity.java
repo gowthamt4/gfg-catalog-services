@@ -19,110 +19,108 @@ import org.hibernate.annotations.Type;
 
 
 @MappedSuperclass
-public abstract class AbstractEntity implements Serializable{
+public abstract class AbstractEntity implements Serializable {
 
-	private static final long serialVersionUID = 3454913073228021896L;
+  private static final long serialVersionUID = 3454913073228021896L;
 
-	@Id
-    @Type(type = "uuid-char")
-    @Column(name = "prod_id", unique = true, nullable = false)
-    private UUID id;
+  @Id
+  @Type(type = "uuid-char")
+  @Column(name = "prod_id", unique = true, nullable = false)
+  private UUID id;
 
-    @Column(name = "created", unique = false, updatable = false)
-    @Temporal(TemporalType.TIMESTAMP)
-    protected Date created;
+  @Column(name = "created", unique = false, updatable = false)
+  @Temporal(TemporalType.TIMESTAMP)
+  protected Date created;
 
-    @Column(name = "lastModified", unique = false)
-    @Temporal(TemporalType.TIMESTAMP)
-    protected Date lastModified;
-    
-    protected AbstractEntity() {
-        id = UUID.randomUUID();
-		this.lastModified = new Date();
+  @Column(name = "lastModified", unique = false)
+  @Temporal(TemporalType.TIMESTAMP)
+  protected Date lastModified;
+
+  protected AbstractEntity() {
+    id = UUID.randomUUID();
+    this.lastModified = new Date();
+  }
+
+  /**
+   * Executed before persisting the entity
+   */
+  @PrePersist
+  void beforeCreate() {
+    this.setCreated(new Date());
+    this.setLastModified(this.getCreated());
+  }
+
+  /**
+   * Executed before making an update to the entity
+   */
+  @PreUpdate
+  void beforeUpdate() {
+    this.setLastModified(new Date());
+  }
+
+  @Override
+  public int hashCode() {
+    if (getId() != null) {
+      return getId().hashCode();
     }
-    
-    /**
-	 * Executed before persisting the entity
-	 */
-    @PrePersist
-	void beforeCreate() {		
-		this.setCreated(new Date());
-		this.setLastModified(this.getCreated());
-	}
-    
-    /**
-	 * Executed before making an update to the entity
-	 */
-    @PreUpdate
-	void beforeUpdate() {
-    	this.setLastModified(new Date());
-    }
+    return super.hashCode();
+  }
 
-	@Override
-    public int hashCode() {
-        if (getId() != null) {
-            return getId().hashCode();
-        }
-        return super.hashCode();
-    }
-
-    @Override
-    public boolean equals(Object other) {
-        if (other == null) {
-            return false;
-        }
-
-        if (other instanceof AbstractEntity) {
-            // Check whether id of entities match
-            return id.equals(((AbstractEntity) other).getId());
-        } else {
-            return false;
-        }
+  @Override
+  public boolean equals(Object other) {
+    if (other == null) {
+      return false;
     }
 
-    /**
-     * @return the id
-     */
-    public UUID getId() {
-        return id;
+    if (other instanceof AbstractEntity) {
+      // Check whether id of entities match
+      return id.equals(((AbstractEntity) other).getId());
+    } else {
+      return false;
     }
+  }
 
-    public void setId(@NotNull UUID id) {
-        notNull(id, "ID of entity may not be null");
-        this.id = id;
-    }
+  /**
+   * @return the id
+   */
+  public UUID getId() {
+    return id;
+  }
 
-    /**
-     * @return the created
-     */
-    public Date getCreated() {
-        return created;
-    }
+  public void setId(@NotNull UUID id) {
+    notNull(id, "ID of entity may not be null");
+    this.id = id;
+  }
 
-    /**
-     * @param created
-     *            the created to set
-     */
-    public void setCreated(Date created) {
-        this.created = created;
-    }
+  /**
+   * @return the created
+   */
+  public Date getCreated() {
+    return created;
+  }
 
-    /**
-     * @return the lastModified
-     */
-    public Date getLastModified() {
-        return lastModified;
-    }
+  /**
+   * @param created the created to set
+   */
+  public void setCreated(Date created) {
+    this.created = created;
+  }
 
-    /**
-     * @param lastModified
-     *            the lastModified to set
-     */
-    public void setLastModified(Date lastModified) {
-        this.lastModified = lastModified;
-    }
+  /**
+   * @return the lastModified
+   */
+  public Date getLastModified() {
+    return lastModified;
+  }
 
-    public static UUID generateUUID() {
-        return UUID.randomUUID();
-    }
+  /**
+   * @param lastModified the lastModified to set
+   */
+  public void setLastModified(Date lastModified) {
+    this.lastModified = lastModified;
+  }
+
+  public static UUID generateUUID() {
+    return UUID.randomUUID();
+  }
 }

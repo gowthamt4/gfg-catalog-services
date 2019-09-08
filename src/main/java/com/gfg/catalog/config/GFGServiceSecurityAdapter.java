@@ -13,26 +13,25 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 @EnableWebSecurity
 public class GFGServiceSecurityAdapter extends WebSecurityConfigurerAdapter {
 
-	@Autowired
-	private AuthenticationEntryPoint authEntryPoint;
+  @Autowired
+  private AuthenticationEntryPoint authEntryPoint;
 
-	@Override
-	protected void configure(HttpSecurity http) throws Exception {
-		http.csrf().disable().authorizeRequests()
-				.anyRequest().authenticated()
-				.and().httpBasic()
-				.authenticationEntryPoint(authEntryPoint);
-	}
+  @Override
+  protected void configure(HttpSecurity http) throws Exception {
+    http.csrf().disable().authorizeRequests().anyRequest().authenticated().and().httpBasic()
+        .authenticationEntryPoint(authEntryPoint);
+  }
 
-	@Autowired
-	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-		//gfgcatalogpass
-		auth.inMemoryAuthentication().withUser("gfgcatalog").password("$2a$04$PjMAl.pgbUmkjQOIYWyF9eW/b0d1vHmqa9wkq5fv7zQsTZDW8hdPi").roles("USER");
-	}
-	
-	@Bean
-	public BCryptPasswordEncoder encoder() {
-	    return new BCryptPasswordEncoder();
-	}
-	
+  @Autowired
+  public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+    // gfgcatalogpass
+    auth.inMemoryAuthentication().withUser("gfgcatalog")
+        .password("$2a$04$PjMAl.pgbUmkjQOIYWyF9eW/b0d1vHmqa9wkq5fv7zQsTZDW8hdPi").roles("USER");
+  }
+
+  @Bean
+  public BCryptPasswordEncoder encoder() {
+    return new BCryptPasswordEncoder();
+  }
+
 }

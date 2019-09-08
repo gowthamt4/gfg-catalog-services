@@ -11,98 +11,92 @@ import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "products")
-public class Product extends AbstractEntity{
-	
-	@Column(name = "title")
-	@NotNull
-	private String title;
-	
-	@Column(name = "description")
-	private String description;
-	
-	@Column(name = "brand", nullable = false)
-	@NotNull
-	private String brand;
-	
-	@Column(name = "price", nullable = false)
-	private double price;
-	
-	@Column(name = "color", nullable = false)
-	private String color;
+public class Product extends AbstractEntity {
 
-	/**
-	 * @return the title
-	 */
-	public String getTitle() {
-		return title;
-	}
+  @Column(name = "title")
+  @NotNull
+  private String title;
 
-	/**
-	 * @param title the title to set
-	 */
-	public void setTitle(String title) {
-		this.title = title;
-	}
+  @Column(name = "description")
+  private String description;
 
-	/**
-	 * @return the description
-	 */
-	public String getDescription() {
-		return description;
-	}
+  @Column(name = "brand", nullable = false)
+  @NotNull
+  private String brand;
 
-	/**
-	 * @param description the description to set
-	 */
-	public void setDescription(String description) {
-		this.description = description;
-	}
+  @Column(name = "price", nullable = false)
+  private double price;
 
-	/**
-	 * @return the brand
-	 */
-	public String getBrand() {
-		return brand;
-	}
+  @Column(name = "color", nullable = false)
+  private String color;
 
-	/**
-	 * @param brand the brand to set
-	 */
-	public void setBrand(String brand) {
-		this.brand = brand;
-	}
+  /**
+   * @return the title
+   */
+  public String getTitle() {
+    return title;
+  }
 
-	/**
-	 * @return the price
-	 */
-	public double getPrice() {
-		return price;
-	}
+  /**
+   * @param title the title to set
+   */
+  public void setTitle(String title) {
+    this.title = title;
+  }
 
-	/**
-	 * @param price the price to set
-	 */
-	public void setPrice(double price) {
-		this.price = price;
-	}
+  /**
+   * @return the description
+   */
+  public String getDescription() {
+    return description;
+  }
 
-	/**
-	 * @return the color
-	 */
-	public String getColor() {
-		return color;
-	}
+  /**
+   * @param description the description to set
+   */
+  public void setDescription(String description) {
+    this.description = description;
+  }
 
-	/**
-	 * @param color the color to set
-	 */
-	public void setColor(String color) {
-		this.color = color;
-	}
-	
-	@Override
-	public String toString() {
-		return "Product [title=" + title + ", description=" + description + ", brand=" + brand + ", price=" + price
-				+ ", color=" + color + ", created=" + created + ", lastModified=" + lastModified + "]";
-	}
+  /**
+   * @return the brand
+   */
+  public String getBrand() {
+    return brand;
+  }
+
+  /**
+   * @param brand the brand to set
+   */
+  public void setBrand(String brand) {
+    this.brand = brand;
+  }
+
+  /**
+   * @return the price
+   */
+  public double getPrice() {
+    return price;
+  }
+
+  /**
+   * @param price the price to set
+   */
+  public void setPrice(double price) {
+    this.price = price;
+  }
+
+  /**
+   * @return the color
+   */
+  public String getColor() {
+    return color;
+  }
+
+  /**
+   * @param color the color to set
+   */
+  public void setColor(String color) {
+    this.color = color;
+  }
 }

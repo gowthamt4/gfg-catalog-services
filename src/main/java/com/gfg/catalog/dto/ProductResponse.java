@@ -7,37 +7,44 @@ import org.springframework.data.domain.Page;
 import com.gfg.catalog.entities.Product;
 import com.gfg.catalog.utils.Link;
 
+/**
+ * This class is to used frame the response of the Product along with hateoas implementation
+ */
 public class ProductResponse {
-	Page<Product> product;
-	List<Link> links;
-	
-	public ProductResponse(Page<Product> product, List<Link> links) {
-		super();
-		this.product = product;
-		this.links = links;
-	}
-	/**
-	 * @return the product
-	 */
-	public Page<Product> getProduct() {
-		return product;
-	}
-	/**
-	 * @param product the product to set
-	 */
-	public void setProduct(Page<Product> product) {
-		this.product = product;
-	}
-	/**
-	 * @return the links
-	 */
-	public List<Link> getLinks() {
-		return links;
-	}
-	/**
-	 * @param links the links to set
-	 */
-	public void setLinks(List<Link> links) {
-		this.links = links;
-	}
+  Page<Product> product;
+  List<Link> links;
+
+  public ProductResponse(Page<Product> product, List<Link> links) {
+    super();
+    this.product = product;
+    this.links = links;
+  }
+
+  /**
+   * @return the product
+   */
+  public Page<Product> getProduct() {
+    return product;
+  }
+
+  /**
+   * @param product the product to set
+   */
+  public void setProduct(Page<Product> product) {
+    this.product = product;
+  }
+
+  /**
+   * @return the links
+   */
+  public List<Link> getLinks() {
+    return links;
+  }
+
+  /**
+   * @param links the links to set
+   */
+  public void setLinks(List<Link> links) {
+    this.links = links;
+  }
 }
