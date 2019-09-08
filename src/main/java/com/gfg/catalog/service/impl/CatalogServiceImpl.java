@@ -27,8 +27,6 @@ public class CatalogServiceImpl implements CatalogService {
 	@Autowired
 	private ProductRepository productRepo;
 	
-	private static final Logger LOGGER = LoggerFactory.getLogger(CatalogServiceImpl.class);
-	
 	/**
      * Method to pull the Specific Product details
      */
@@ -46,7 +44,6 @@ public class CatalogServiceImpl implements CatalogService {
      */
 	@Override
 	public void createProduct(final Product product) {
-		LOGGER.info("Product details "+product);
 		productRepo.save(product);
 	}
 
@@ -82,17 +79,6 @@ public class CatalogServiceImpl implements CatalogService {
 	}
 
 	@Override
-	public List<Product> searchProductsByTitleDesc(final String title, final String desc) {
-		if(desc == null || desc.isEmpty()) {
-			return productRepo.findProdByTitle(title);
-		} else if(title ==null || title.isEmpty()) {
-			return productRepo.findProdByDesc(desc);
-		} else {
-			return productRepo.findProdByTitleDesc(title,desc);
-		}
-	}
-
-	@Override
 	public List<Product> getAllProducts(List<UUID> formattedProdIds) {
 		if(formattedProdIds != null && !formattedProdIds.isEmpty()) {
 			return (List<Product>)productRepo.findAllById(formattedProdIds);
@@ -103,19 +89,25 @@ public class CatalogServiceImpl implements CatalogService {
 	
 	@SuppressWarnings("deprecation")
 	@Override
-	public Page<Product> getPaginatedProducts(int page, int size, String orderBy, String direction){
+	public Page<Product> getPaginatedProducts(final List<UUID> formattedProdIds, final String title, final String desc, final int page, final int size, String orderBy, String direction){
 		Sort sort = null;
-		if(orderBy != null && !orderBy.isEmpty()) {
-			String[] orderByFields = orderBy.split(",");
-			List<Order> orders = new ArrayList<Order>();
-			for(String orderByField : orderByFields) {
-				orders.add(new Sort.Order(Direction.fromString(direction), orderByField)); 
-			}
-			sort = new Sort(orders);
+		List<Order> orders = new ArrayList<Order>();
+		String[] orderByFields = orderBy.split(",");
+		for(String orderByField : orderByFields) {
+			orders.add(new Sort.Order(Direction.fromString(direction), orderByField)); 
 		}
-		 
+		sort = new Sort(orders);
 		Pageable pageable = new PageRequest(page, size, sort);
-		Page<Product> data = productRepo.findAll(pageable);
-		return data;
+		if(title != null && !title.isEmpty()) {
+			return productRepo.findProdByTitle(title, pageable);
+		} else if(desc != null && !desc.isEmpty()) {
+			return productRepo.findProdByDesc(desc, pageable);
+		} else if(title != null && !title.isEmpty() && desc != null && !desc.isEmpty()){
+			return productRepo.findProdByTitleDesc(title,desc,pageable);
+		} else if(formattedProdIds != null && !formattedProdIds.isEmpty()) {
+			return productRepo.findAllByIds(formattedProdIds, pageable);
+		} else {
+			return productRepo.findAll(pageable);
+		}
 	}
 }

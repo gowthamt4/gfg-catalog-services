@@ -36,8 +36,8 @@ public interface CatalogService {
 
 	List<Product> getAllProducts(List<UUID> formattedProdIds);
 	
-	List<Product> searchProductsByTitleDesc(final String title, final String desc);
+	//List<Product> searchProductsByTitleDesc(final String title, final String desc);
 
-	Page<Product> getPaginatedProducts(int page, int size, String orderBy, String direction);
+	Page<Product> getPaginatedProducts(List<UUID> formattedProdIds, String title, String description, int page, int size, String orderBy, String direction);
 
 }

@@ -1,14 +1,9 @@
 package com.gfg.catalog.entities;
 
-import java.util.List;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
-
-import com.gfg.catalog.utils.Link;
 
 /**
  * Model for the Entity Product
@@ -34,22 +29,6 @@ public class Product extends AbstractEntity{
 	
 	@Column(name = "color", nullable = false)
 	private String color;
-
-	@Transient
-	private List<Link> links;
-	/**
-	 * @return the link
-	 */
-	public List<Link> getLink() {
-		return links;
-	}
-
-	/**
-	 * @param link the link to set
-	 */
-	public void setLink(List<Link> links) {
-		this.links = links;
-	}
 
 	/**
 	 * @return the title
@@ -121,10 +100,6 @@ public class Product extends AbstractEntity{
 		this.color = color;
 	}
 	
-	public void addLink(String url, String rel, String method) {
-		Link link = new Link(url, rel, method);
-		links.add(link);
-	}
 	@Override
 	public String toString() {
 		return "Product [title=" + title + ", description=" + description + ", brand=" + brand + ", price=" + price
