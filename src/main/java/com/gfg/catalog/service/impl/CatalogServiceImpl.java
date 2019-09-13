@@ -30,11 +30,11 @@ public class CatalogServiceImpl implements CatalogService {
    */
   @Override
   public Product getProductDetails(final UUID id) {
-    Product product = productRepo.findById(id).get();
-    if (product == null) {
+    Optional<Product> product = productRepo.findById(id);
+    if (!product.isPresent()) {
       throw new ProductNotFoundException("Product with id " + id + " doesn't exist");
     }
-    return product;
+    return product.get();
   }
 
   /**
