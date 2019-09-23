@@ -1,0 +1,173 @@
+{
+	"id": "93341af0-31db-7dc0-6ecc-1aa12b606c84",
+	"name": "GFGCatalog API Collection",
+	"description": "",
+	"order": [
+		"f18f573a-4268-76ed-872c-7ea707f76ddd",
+		"135bb748-5d76-8b0e-0488-930e4111d739",
+		"8131e4a5-50ab-626f-c610-5e2b5d78fbff",
+		"97875ddc-7ae1-49c9-c9b1-a22b1a9a5cab"
+	],
+	"folders": [],
+	"folders_order": [],
+	"timestamp": 1569273168711,
+	"owner": 0,
+	"public": false,
+	"requests": [
+		{
+			"id": "135bb748-5d76-8b0e-0488-930e4111d739",
+			"headers": "Content-Type: application/json\nAuthorization: Basic Z2ZnY2F0YWxvZzpnZmdjYXRhbG9ncGFzcw==\n",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				},
+				{
+					"key": "Authorization",
+					"value": "Basic Z2ZnY2F0YWxvZzpnZmdjYXRhbG9ncGFzcw==",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "localhost:8080/products/bb4576cc-ba99-44b7-9cda-af23ef9cee0f",
+			"queryParams": [],
+			"pathVariables": {},
+			"pathVariableData": [],
+			"preRequestScript": null,
+			"method": "DELETE",
+			"collectionId": "93341af0-31db-7dc0-6ecc-1aa12b606c84",
+			"data": [],
+			"dataMode": "raw",
+			"name": "Delete Product API",
+			"description": "",
+			"descriptionFormat": "html",
+			"time": 1569273224501,
+			"version": 2,
+			"responses": [],
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"rawModeData": "{\n    \"title\": \"Laptop\",\n    \"description\": \"Tummala\",\n    \"brand\": \"DELL\",\n    \"color\": \"black\"\n}"
+		},
+		{
+			"id": "8131e4a5-50ab-626f-c610-5e2b5d78fbff",
+			"headers": "Content-Type: application/json\nAuthorization: Basic Z2ZnY2F0YWxvZzpnZmdjYXRhbG9ncGFzcw==\n",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				},
+				{
+					"key": "Authorization",
+					"value": "Basic Z2ZnY2F0YWxvZzpnZmdjYXRhbG9ncGFzcw==",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "localhost:8080/products/batch",
+			"queryParams": [],
+			"pathVariables": {},
+			"pathVariableData": [],
+			"preRequestScript": null,
+			"method": "POST",
+			"collectionId": "93341af0-31db-7dc0-6ecc-1aa12b606c84",
+			"data": [],
+			"dataMode": "raw",
+			"name": "Create Products by batch",
+			"description": "",
+			"descriptionFormat": "html",
+			"time": 1569273371374,
+			"version": 2,
+			"responses": [],
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"rawModeData": "[\n\t{\n\t    \"title\": \"Laptop\",\n\t    \"description\": \"DELL Laptop\",\n\t    \"brand\": \"DELL\",\n\t    \"price\": \"3500.0\",\n\t    \"color\": \"black\"\n\t},\n\t{\n\t    \"title\": \"Laptop Charger\",\n\t    \"description\": \"DELL Laptop Charger\",\n\t    \"brand\": \"DELL\",\n\t    \"price\": \"35.0\",\n\t    \"color\": \"black\"\n\t},\n\n\t{\n\t    \"title\": \"Laptop\",\n\t    \"description\": \"Apple Laptop\",\n\t    \"brand\": \"Apple\",\n\t    \"price\": \"3456.0\",\n\t    \"color\": \"White\"\n\t},\n\t{\n\t    \"title\": \"Laptop Charger\",\n\t    \"description\": \"Apple Laptop Charger\",\n\t    \"price\": \"25.0\",\n\t    \"brand\": \"Apple\",\n\t    \"color\": \"White\"\n\t}\n]"
+		},
+		{
+			"id": "97875ddc-7ae1-49c9-c9b1-a22b1a9a5cab",
+			"headers": "Content-Type: application/json\nAuthorization: Basic Z2ZnY2F0YWxvZzpnZmdjYXRhbG9ncGFzcw==\n",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				},
+				{
+					"key": "Authorization",
+					"value": "Basic Z2ZnY2F0YWxvZzpnZmdjYXRhbG9ncGFzcw==",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "localhost:8080/products/2f2fb715-2597-450d-93a1-965423048cbd",
+			"queryParams": [],
+			"preRequestScript": null,
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "PUT",
+			"data": [],
+			"dataMode": "raw",
+			"version": 2,
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1569273564066,
+			"name": "Update Product API",
+			"description": "",
+			"collectionId": "93341af0-31db-7dc0-6ecc-1aa12b606c84",
+			"responses": [],
+			"rawModeData": "{\n    \"id\": \"2f2fb715-2597-450d-93a1-965423048cbd\",\n    \"created\": \"2019-09-05T06:49:42.404+0000\",\n    \"lastModified\": \"2019-09-05T06:49:42.404+0000\",\n    \"title\": \"Laptop\",\n    \"description\": \"\",\n    \"brand\": \"DELL\",\n    \"price\": 0,\n    \"color\": \"black\"\n}"
+		},
+		{
+			"id": "f18f573a-4268-76ed-872c-7ea707f76ddd",
+			"headers": "Authorization: Basic Z2ZnY2F0YWxvZzpnZmdjYXRhbG9ncGFzcw==\n",
+			"headerData": [
+				{
+					"key": "Authorization",
+					"value": "Basic Z2ZnY2F0YWxvZzpnZmdjYXRhbG9ncGFzcw==",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "http://localhost:8080/products?orderBy=color,price&direction=ASC",
+			"queryParams": [
+				{
+					"key": "orderBy",
+					"value": "color,price",
+					"equals": true,
+					"description": "",
+					"enabled": true
+				},
+				{
+					"key": "direction",
+					"value": "ASC",
+					"equals": true,
+					"description": "",
+					"enabled": true
+				}
+			],
+			"pathVariables": {},
+			"pathVariableData": [],
+			"preRequestScript": null,
+			"method": "GET",
+			"collectionId": "93341af0-31db-7dc0-6ecc-1aa12b606c84",
+			"data": null,
+			"dataMode": "params",
+			"name": "GET Products API",
+			"description": "",
+			"descriptionFormat": "html",
+			"time": 1569273173631,
+			"version": 2,
+			"responses": [],
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {}
+		}
+	]
+}
