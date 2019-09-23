@@ -174,18 +174,4 @@ public class CatalogServiceImplTest {
     catalogServiceImpl.createNewProducts(productList);
     Mockito.verify(productRepo).saveAll(productList);
   }
-
-
-
-  /*
-   * @Test public void testPaginatedProductsWithTitle() { ProductRepository productRepo =
-   * Mockito.mock(ProductRepository.class); String title = "Apple"; Page p = new Page
-   * //Page<Product> p = Mockito.when(productRepo.findProdByTitle(title,
-   * pageable)).thenReturn(value);
-   * 
-   * ReflectionTestUtils.setField(catalogServiceImpl, "productRepo", productRepo);
-   * 
-   * catalogServiceImpl.createProduct(newProduct); Mockito.verify(productRepo).save(newProduct); }
-   */
-
 }
