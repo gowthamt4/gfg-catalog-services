@@ -5,6 +5,7 @@
 - Use the following credentials to generate the token and pass to the Authorization Header
 	Username: gfgcatalog
 	Password: gfgcatalogpass
+- Did not implement the versioning of API
 
 ## Deploy
 Docker file has been created. Use this to create an image and then ** docker build <path> **. Path refers to the path containing docker file
